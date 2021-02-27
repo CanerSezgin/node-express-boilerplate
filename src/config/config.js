@@ -1,9 +1,11 @@
 const {
   PORT,
   NODE_ENV,
-  MONGO_URL,
+  DB_NAME,
+  DB_USER,
+  DB_PASSWORD,
   MONGO_INITDB_ROOT_USERNAME,
-  MONGO_INITDB_ROOT_PASSWORD,
+  MONGO_INITDB_ROOT_PASSWORD
 } = process.env;
 
 const checkRequiredConfigs = (configs) => {
@@ -17,16 +19,16 @@ const checkRequiredConfigs = (configs) => {
 
 checkRequiredConfigs({
   NODE_ENV,
-  MONGO_URL,
-  MONGO_INITDB_ROOT_USERNAME,
-  MONGO_INITDB_ROOT_PASSWORD,
+  DB_NAME,
+  DB_USER,
+  DB_PASSWORD,
 });
 
 module.exports = {
   env: NODE_ENV || "not-set",
   port: PORT || 3000,
   mongoose: {
-    url: MONGO_URL,
+    url: `mongodb://db:27017/admin`,
     options: {
       auth: {
         user: MONGO_INITDB_ROOT_USERNAME,

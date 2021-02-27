@@ -1,22 +1,37 @@
-version: '3'
+version: '3.7'
 
 services:
   api:
     build: .
     image: canersezgin/node-mongo-redis
-    environment: 
-      - NODE_ENV=development
-      - PORT=5001
+    restart: unless-stopped
     env_file: 
       - .env
     ports:
-      - '80:5001'
+      - 80:${PORT}
     volumes: 
       - .:/home/node/app
-    command: 
-      - npm 
-      - run
-      - dev
+    networks:
+      - node_mongo_redis
+    depends_on:
+      - db
+
+  db:
+    image: mongo:4.4.4
+    container_name: db
+    restart: unless-stopped
+    env_file: 
+      - .env
+    ports:
+      - '27017:27017'
+    volumes:
+      - dbdata:/data/db
+    networks:
+      - node_mongo_redis
+
 
 networks: 
   node_mongo_redis:
+
+volumes: 
+  dbdata:

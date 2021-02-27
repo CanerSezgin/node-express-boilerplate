@@ -23,7 +23,7 @@ app.options('*', cors());
 app.use(morgan('dev'))
 
 app.get("/status", (req, res) => {
-    return res.status(200).json({status: "ok"})
+    return res.status(200).json({status: "ok", envs: process.env})
 })
 // v1 api routes
 app.use('/v1', routes);
