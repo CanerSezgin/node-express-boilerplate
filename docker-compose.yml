@@ -3,7 +3,7 @@ version: '3.7'
 services:
   api:
     build: .
-    image: canersezgin/node-mongo-redis
+    image: canersezgin/node:alpine
     restart: unless-stopped
     env_file: 
       - .env
@@ -15,6 +15,7 @@ services:
       - node_mongo_redis
     depends_on:
       - db
+      - cache
 
   db:
     image: mongo:4.4.4
@@ -23,15 +24,28 @@ services:
     env_file: 
       - .env
     ports:
-      - '27017:27017'
+      - 27017:27017
     volumes:
       - dbdata:/data/db
     networks:
       - node_mongo_redis
 
+  cache:
+    image: bitnami/redis:latest
+    container_name: cache
+    restart: unless-stopped
+    env_file: 
+      - .env
+    ports:
+      - 6379:6379
+    volumes:
+      - cachedata:/bitnami
+    networks: 
+      - node_mongo_redis
 
 networks: 
   node_mongo_redis:
 
 volumes: 
   dbdata:
+  cachedata:
