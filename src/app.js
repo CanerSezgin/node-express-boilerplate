@@ -3,6 +3,7 @@ const helmet = require('helmet');
 const cors = require('cors');
 const bodyParser = require("body-parser");
 const routes = require('./routes/v1');
+const morgan = require("morgan")
 
 const app = express();
 
@@ -19,6 +20,11 @@ app.use(bodyParser.json());
 app.use(cors());
 app.options('*', cors());
 
+app.use(morgan('dev'))
+
+app.get("/status", (req, res) => {
+    return res.status(200).json({status: "ok"})
+})
 // v1 api routes
 app.use('/v1', routes);
 
