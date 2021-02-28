@@ -1,44 +1,29 @@
 const mongoose = require('mongoose');
+const os = require("os")
 const config = require("./config/config");
 const app = require('./app');
+const logger = require("./lib/logger");
 
-const logger = {
-  info: (m) => console.log(m),
-  error: (m ) => console.log(m)
+const startMongoDB = async () => {
+  const connection = await mongoose.connect(config.mongoose.url, config.mongoose.options);
+  return connection.connection.db;
 }
 
-let server;
-mongoose.connect(config.mongoose.url, config.mongoose.options).then(() => {
-  logger.info('Connected to MongoDB');
-  server = app.listen(config.port, () => {
-    logger.info(`Listening to port ${config.port}`);
-  });
+const server = app.listen(config.port, async () => {
+  try {
+    await startMongoDB();
+    logger.info("✓✓✓ DB: Mongo Connected.")
+  } catch (error) {
+    logger.error("DB: Mongo Connection Error.", error)
+    logger.info("Server Running although there is a DB connection error.")
+  }
+  const host = os.hostname();
+  console.log(
+    "Listening at http://%s:%s in %s environment.",
+    host,
+    server.address().port,
+    config.env
+  );
 });
 
-console.log(config)
-
-const exitHandler = () => {
-  if (server) {
-    server.close(() => {
-      logger.info('Server closed');
-      process.exit(1);
-    });
-  } else {
-    process.exit(1);
-  }
-};
-
-const unexpectedErrorHandler = (error) => {
-  logger.error(error);
-  exitHandler();
-};
-
-process.on('uncaughtException', unexpectedErrorHandler);
-process.on('unhandledRejection', unexpectedErrorHandler);
-
-process.on('SIGTERM', () => {
-  logger.info('SIGTERM received');
-  if (server) {
-    server.close();
-  }
-});
+server.timeout = 25000; // sets timeout to 25 seconds

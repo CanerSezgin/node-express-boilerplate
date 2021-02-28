@@ -3,6 +3,6 @@ const surveyContoller = require("../../controllers/survey")
 
 const router = express.Router();
 
-router.post('/', surveyContoller.hi);
+router.get('/', surveyContoller.hi);
 
 module.exports = router;

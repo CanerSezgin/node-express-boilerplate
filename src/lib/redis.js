@@ -1,5 +1,6 @@
 const redis = require("redis");
 const { promisify } = require("util");
+const logger = require("./logger");
 
 const conf = {
     host: "cache",
@@ -15,11 +16,11 @@ const delAsync = promisify(client.del).bind(client);
 const scanAsync = promisify(client.scan).bind(client);
 
 client.on("error", (err) => {
-  console.log("Redis Event: Error", err)
+  logger.error("Redis Error | ", err)
 });
 
 client.on("ready", () => {
-  console.log("Redis Event: Ready")
+  logger.info("✓✓✓ CACHE: Redis is Ready.")
 });
 
 module.exports = {

@@ -5,7 +5,8 @@ const {
   DB_USER,
   DB_PASSWORD,
   MONGO_INITDB_ROOT_USERNAME,
-  MONGO_INITDB_ROOT_PASSWORD
+  MONGO_INITDB_ROOT_PASSWORD,
+  LOG_LEVEL
 } = process.env;
 
 const checkRequiredConfigs = (configs) => {
@@ -39,4 +40,11 @@ module.exports = {
       useUnifiedTopology: true,
     },
   },
+  logger: {
+    level: LOG_LEVEL || "info"
+  },
+  meta: {
+    isProd: NODE_ENV === "production",
+    isDev: NODE_ENV === "development"
+  }
 };

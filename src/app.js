@@ -2,7 +2,7 @@ const express = require('express');
 const helmet = require('helmet');
 const cors = require('cors');
 const bodyParser = require("body-parser");
-const routes = require('./routes/v1');
+const apiRoutesV1 = require('./routes/v1');
 const morgan = require("morgan")
 const cache = require("./lib/redis")
 
@@ -42,7 +42,7 @@ app.get("/set-cache", async (req, res) => {
     return res.status(200).json({ status: "failed", key, val })
 })
 
-// v1 api routes
-app.use('/v1', routes);
+// Routes
+app.use('/api/v1', apiRoutesV1);
 
 module.exports = app;
