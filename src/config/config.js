@@ -1,33 +1,14 @@
 const {
-  PORT,
-  NODE_ENV,
-  DB_NAME,
-  DB_USER,
-  DB_PASSWORD,
+  PORT = 3000,
+  NODE_ENV = "not-set",
+  LOG_LEVEL = "info",
   MONGO_INITDB_ROOT_USERNAME,
   MONGO_INITDB_ROOT_PASSWORD,
-  LOG_LEVEL
 } = process.env;
 
-const checkRequiredConfigs = (configs) => {
-  Object.entries(configs).forEach(([key, value]) => {
-    if (!value) {
-      console.log(`>>> Missing Config: ${key}`);
-    }
-  });
-  console.log("\n")
-};
-
-checkRequiredConfigs({
-  NODE_ENV,
-  DB_NAME,
-  DB_USER,
-  DB_PASSWORD,
-});
-
 module.exports = {
-  env: NODE_ENV || "not-set",
-  port: PORT || 3000,
+  env: NODE_ENV,
+  port: PORT,
   mongoose: {
     url: `mongodb://db:27017/admin`,
     options: {
@@ -41,7 +22,7 @@ module.exports = {
     },
   },
   logger: {
-    level: LOG_LEVEL || "info"
+    level: LOG_LEVEL
   },
   meta: {
     isProd: NODE_ENV === "production",

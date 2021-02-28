@@ -12,18 +12,13 @@ const startMongoDB = async () => {
 const server = app.listen(config.port, async () => {
   try {
     await startMongoDB();
-    logger.info("✓✓✓ DB: Mongo Connected.")
+    logger.info("✓ DB: Mongo Connected.")
   } catch (error) {
     logger.error("DB: Mongo Connection Error.", error)
     logger.info("Server Running although there is a DB connection error.")
   }
   const host = os.hostname();
-  console.log(
-    "Listening at http://%s:%s in %s environment.",
-    host,
-    server.address().port,
-    config.env
-  );
+  logger.info(`✓ SERVER: Listening at http://${host}:${server.address().port} in ${config.env} environment.`);
 });
 
 server.timeout = 25000; // sets timeout to 25 seconds

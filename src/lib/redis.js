@@ -20,7 +20,7 @@ client.on("error", (err) => {
 });
 
 client.on("ready", () => {
-  logger.info("✓✓✓ CACHE: Redis is Ready.")
+  logger.info("✓ CACHE: Redis is Ready.")
 });
 
 module.exports = {
