@@ -1,0 +1,28 @@
+
+
+<div>
+	<b>sessionId:</b> <%= sesId %>
+</div>
+<div>
+	<b>isAuth</b> <%= isAuth %>
+</div>
+<div>
+	<b>user</b> <%= user %>
+</div>
+
+<h1>Login</h1>
+<form action="/login" method="post">
+    <div>
+        <label>Email:</label>
+        <input type="text" name="email"/>
+    </div>
+    <div>
+        <label>Password:</label>
+        <input type="password" name="password"/>
+    </div>
+    <div>
+        <input type="submit" value="Log In"/>
+    </div>
+</form>
+
+<a href="/register">register</a>

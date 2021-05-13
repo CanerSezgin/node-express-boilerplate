@@ -1,0 +1,17 @@
+
+<div>
+	<b>sessionId:</b> <%= sesId %>
+</div>
+<div>
+	<b>isAuth</b> <%= isAuth %>
+</div>
+<div>
+	<b>user</b> <%= user %>
+</div>
+
+<% if (!user) { %>
+	<p>Welcome! Please <a href="/login">log in</a>.</p>
+	<p>or <a href="/register">register</a>.</p>
+<% } else { %>
+	<p>Hello, <%= user.username %>. View your <a href="/profile">profile</a>.</p>
+<% } %>
