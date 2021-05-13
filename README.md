@@ -12,11 +12,11 @@ Node Api supports
     - API Versioning
 
 # Getting Started
-`git clone https://github.com/CanerSezgin/node-express-boilerplate.git`
-`cd node-express-boilerplate`
-`rm -rf .git`
-`cp .env.example .env`
-`npm run docker:dev`
+* `git clone https://github.com/CanerSezgin/node-express-boilerplate.git`
+* `cd node-express-boilerplate`
+* `rm -rf .git`
+* `cp .env.example .env`
+* `npm run docker:dev`
 
 # Commands
 * `docker:dev`: compose up containers & network, start server in development mode (automatically restarting the node application when file changes in the directory are detected)
