@@ -1,19 +1,34 @@
 const express = require("express");
 const config = require("../../config/config");
-const surveyRoute = require("./survey.route");
+
+// Middlewares
+const authCheck = require("../../middleware/authCheck");
+
+// Routes
+const authRoute = require("./auth.route");
+const userRoute = require("./user.route");
 
 const router = express.Router();
 
 const setRoutes = (routes) => {
   routes.forEach((route) => {
-    router.use(route.path, route.route);
+    if(Array.isArray(route.middlewares) && route.middlewares.length ){
+      router.use(route.path, ...route.middlewares, route.route); 
+    } else {
+      router.use(route.path, route.route);
+    }
   });
 };
 
 const defaultRoutes = [
   {
-    path: "/survey",
-    route: surveyRoute,
+    path: "/auth",
+    route: authRoute,
+  },
+  {
+    path: "/user",
+    route: userRoute,
+    middlewares: [ authCheck ]
   },
 ];
 

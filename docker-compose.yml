@@ -16,6 +16,7 @@ services:
     depends_on:
       - db
       - cache
+      - session
 
   db:
     image: mongo:4.4.4
@@ -43,9 +44,23 @@ services:
     networks: 
       - node_mongo_redis
 
+  session:
+    image: bitnami/redis:latest
+    container_name: session
+    restart: unless-stopped
+    env_file: 
+      - .env
+    ports:
+      - 6380:6379
+    volumes:
+      - sessiondata:/bitnami
+    networks: 
+      - node_mongo_redis
+
 networks: 
   node_mongo_redis:
 
 volumes: 
   dbdata:
   cachedata:
+  sessiondata:

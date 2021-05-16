@@ -32,6 +32,7 @@ router.post(
     failureRedirect: "/login"
   }),
   function (req, res) {
+    console.log(req.baseUrl)
     res.redirect("/");
   }
 );

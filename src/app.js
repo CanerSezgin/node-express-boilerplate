@@ -1,11 +1,12 @@
 const express = require("express");
-const session = require("express-session");
 const cookieParser = require("cookie-parser");
 const helmet = require("helmet");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const morgan = require("morgan");
-const cache = require("./lib/redis");
+
+const sessionMiddleware = require("./middleware/session")
+
 const authService = require("./services/auth.service");
 
 const apiRoutesV1 = require("./routes/v1");
@@ -25,7 +26,7 @@ app.use(bodyParser.json());
 app.use(morgan("dev"));
 
 app.use(cookieParser());
-app.use(
+/* app.use(
   session({
     secret: "very secret key",
     cookie: {
@@ -36,7 +37,8 @@ app.use(
     resave: false,
     unset: "destroy",
   })
-);
+); */
+app.use(sessionMiddleware)
 
 // enable cors
 app.use(
