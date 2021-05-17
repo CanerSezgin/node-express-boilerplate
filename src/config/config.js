@@ -2,6 +2,7 @@ const {
   PORT = 3000,
   NODE_ENV = "not-set",
   LOG_LEVEL = "info",
+  MONGO_DB_NAME,
   MONGO_INITDB_ROOT_USERNAME,
   MONGO_INITDB_ROOT_PASSWORD,
   REDIS_PASSWORD,
@@ -26,7 +27,7 @@ module.exports = {
     unset: "destroy",
   },
   mongoose: {
-    url: `mongodb://db:27017/admin`,
+    url: `mongodb://db:27017/${MONGO_DB_NAME}`,
     options: {
       auth: {
         user: MONGO_INITDB_ROOT_USERNAME,

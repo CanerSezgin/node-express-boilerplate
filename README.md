@@ -18,6 +18,15 @@ Node Api supports
 * `cp .env.example .env`
 * `npm run docker:dev`
 
+# Create Database in Docker Container
+- `docker exec -it {container_id} mongo`
+- `use admin`
+- `db.auth("admin123", "example123")` "*mongo_admin_user*", "*mongo_admin_pass*" 
+- `use {newDBName}`
+- `db.createUser( { user: "newdb_user", pwd: "newdb_pass", roles:[ { role: "readWrite", db: "newDBName" } ] } );`
+
+Don't forget to change `MONGO_DB_NAME, MONGO_INITDB_ROOT_USERNAME, MONGO_INITDB_ROOT_PASSWORD` in your  ,.env` file
+
 # Commands
 * `docker:dev`: compose up containers & network, start server in development mode (automatically restarting the node application when file changes in the directory are detected)
 * `docker:logs`: Shows only node-app service logs,
