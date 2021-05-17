@@ -26,18 +26,7 @@ app.use(bodyParser.json());
 app.use(morgan("dev"));
 
 app.use(cookieParser());
-/* app.use(
-  session({
-    secret: "very secret key",
-    cookie: {
-      maxAge: 10 * 60 * 1000,
-      secure: false, // true in prod
-    },
-    saveUninitialized: false,
-    resave: false,
-    unset: "destroy",
-  })
-); */
+
 app.use(sessionMiddleware)
 
 // enable cors

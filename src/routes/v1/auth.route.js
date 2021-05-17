@@ -12,4 +12,11 @@ router.post(
   }
 );
 
+router.post("/logout", (req, res) => {
+  req.logout();
+  console.log("logged out")
+  return res.status(204).json(null)
+})
+
+
 module.exports = router;
